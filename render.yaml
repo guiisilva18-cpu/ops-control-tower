@@ -1,0 +1,32 @@
+# Blueprint genérico de deploy no Render (https://render.com).
+#
+# Este arquivo é documentação/exemplo - o serviço não está de fato no ar
+# para este portfólio. Para publicar de verdade, bastaria conectar o
+# repositório no Render e ele detectaria este blueprint automaticamente.
+#
+# Observações importantes para produção:
+#   - Troque OPS_TOWER_SECRET_KEY por um valor gerado (`sync: false` abaixo
+#     faz o Render pedir o valor manualmente, sem hardcodar no repositório).
+#   - O SQLite versionado no repositório é aceitável para uma demo, mas num
+#     serviço com disco efêmero cada deploy reseta o banco para o estado
+#     commitado. Para persistência real em produção, use um disco
+#     persistente do Render (seção `disk` abaixo) ou migre para Postgres.
+
+services:
+  - type: web
+    name: ops-control-tower
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: OPS_TOWER_SECRET_KEY
+        sync: false
+      - key: OPS_TOWER_DB_PATH
+        value: /var/data/ops_control_tower.db
+      - key: PYTHON_VERSION
+        value: 3.12.0
+    disk:
+      name: ops-control-tower-dados
+      mountPath: /var/data
+      sizeGB: 1

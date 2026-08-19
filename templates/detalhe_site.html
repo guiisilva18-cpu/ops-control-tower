@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block titulo %}Detalhe por Site - Torre de Controle de Operações{% endblock %}
+{% block conteudo %}
+<div class="barra-filtro">
+    <form method="get">
+        <label for="data">Data de referência</label>
+        <select name="data" id="data" onchange="this.form.submit()">
+            {% for data_opcao in datas_disponiveis %}
+            <option value="{{ data_opcao }}" {% if data_opcao == data_referencia %}selected{% endif %}>{{ data_opcao }}</option>
+            {% endfor %}
+        </select>
+    </form>
+</div>
+
+<h1>Detalhe por Site</h1>
+<p class="descricao-tela">Ranking de sites por volume coletado na data selecionada.</p>
+
+<div class="tabela-scroll">
+<table class="tabela-ranking">
+    <thead>
+        <tr>
+            <th>Site</th>
+            <th>Cidade/UF</th>
+            <th>Volume total</th>
+            <th>Volume coletado</th>
+            <th>% Falta de bipagem</th>
+            <th>Efetivo total</th>
+            <th>Custo estimado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for linha in ranking %}
+        <tr class="{% if linha.percentual_falta_bipagem > 15 %}linha-alerta{% endif %}">
+            <td>
+                <strong>{{ linha.site_id }}</strong><br>
+                <span class="texto-secundario">{{ linha.nome }}</span>
+            </td>
+            <td>{{ linha.cidade }}/{{ linha.uf }}</td>
+            <td>{{ linha.volume_total }}</td>
+            <td>{{ linha.volume_coletado }}</td>
+            <td>{{ linha.percentual_falta_bipagem }}%</td>
+            <td>{{ linha.efetivo_total }}</td>
+            <td>R$ {{ "%.2f"|format(linha.custo_estimado) }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="7">Nenhum dado carregado para esta data.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

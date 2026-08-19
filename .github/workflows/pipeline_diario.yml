@@ -1,0 +1,40 @@
+name: Pipeline diário (gerar + carregar dados sintéticos)
+
+# Mesmo padrão do job real que inspirou este portfólio: roda todo dia num
+# horário fixo, simulando a raspagem do sistema ConectaCarga e carregando
+# os pedidos de coleta do dia no banco, de forma idempotente. Como este é
+# um projeto de portfólio (sem banco externo), o próprio SQLite versionado
+# no repositório é atualizado e commitado de volta pelo workflow.
+on:
+  schedule:
+    - cron: "0 7 * * *"  # 07:00 UTC todo dia
+  workflow_dispatch: {}  # permite rodar manualmente pela aba Actions
+
+permissions:
+  contents: write
+
+jobs:
+  rodar-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Rodar geração + carga do dia
+        run: python scripts/executar_pipeline.py
+
+      - name: Commitar banco atualizado (se houve mudança)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ops_control_tower.db
+          git diff --cached --quiet && echo "Sem mudanças para commitar." || git commit -m "Carga automática diária de dados sintéticos"
+          git push

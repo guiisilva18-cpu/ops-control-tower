@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo %}Torre de Controle de Operações{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+</head>
+<body>
+    {% if nome_exibicao %}
+    <header class="cabecalho">
+        <div class="cabecalho-marca">
+            <img src="{{ url_for('static', filename='logo.svg') }}" alt="Logo" class="logo">
+            <span>Torre de Controle de Operações</span>
+        </div>
+        <nav class="cabecalho-nav">
+            <a href="{{ url_for('visao_geral.index') }}">Visão Geral</a>
+            <a href="{{ url_for('detalhe_site.index') }}">Detalhe por Site</a>
+        </nav>
+        <div class="cabecalho-usuario">
+            <span>{{ nome_exibicao }}</span>
+            <a href="{{ url_for('auth.logout') }}" class="botao-sair">Sair</a>
+        </div>
+    </header>
+    {% endif %}
+
+    <main class="conteudo">
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer class="rodape">
+        <p>Dados 100% sintéticos e fictícios, gerados para fins de portfólio - simulação do sistema interno "{{ sistema_origem }}".</p>
+    </footer>
+</body>
+</html>

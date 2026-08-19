@@ -1,0 +1,88 @@
+"""Cadastro fictício dos sites/pontos de coleta.
+
+Nomes, cidades, custos e efetivo são 100% inventados para este portfólio -
+não correspondem a nenhuma empresa, transportadora ou local real.
+"""
+
+SITES_FICTICIOS = [
+    {
+        "site_id": "PONTO-CENTRO",
+        "nome": "Ponto de Coleta Centro",
+        "cidade": "Vale Verde",
+        "uf": "PR",
+        "custo_unitario_coleta": 18.40,
+        "efetivo_t1": 6,
+        "efetivo_t2": 5,
+        "efetivo_t3": 2,
+    },
+    {
+        "site_id": "PONTO-NORTE",
+        "nome": "Ponto de Coleta Norte",
+        "cidade": "Serra Alta",
+        "uf": "SC",
+        "custo_unitario_coleta": 21.10,
+        "efetivo_t1": 4,
+        "efetivo_t2": 4,
+        "efetivo_t3": 1,
+    },
+    {
+        "site_id": "PONTO-SUL",
+        "nome": "Ponto de Coleta Sul",
+        "cidade": "Campo Bello",
+        "uf": "RS",
+        "custo_unitario_coleta": 19.75,
+        "efetivo_t1": 5,
+        "efetivo_t2": 3,
+        "efetivo_t3": 2,
+    },
+    {
+        "site_id": "PONTO-LESTE",
+        "nome": "Ponto de Coleta Leste",
+        "cidade": "Porto Novo",
+        "uf": "ES",
+        "custo_unitario_coleta": 22.90,
+        "efetivo_t1": 3,
+        "efetivo_t2": 3,
+        "efetivo_t3": 1,
+    },
+    {
+        "site_id": "PONTO-OESTE",
+        "nome": "Ponto de Coleta Oeste",
+        "cidade": "Rio Manso",
+        "uf": "GO",
+        "custo_unitario_coleta": 17.60,
+        "efetivo_t1": 4,
+        "efetivo_t2": 2,
+        "efetivo_t3": 1,
+    },
+    {
+        "site_id": "HUB-VALE",
+        "nome": "Hub Regional Vale",
+        "cidade": "Vale Verde",
+        "uf": "PR",
+        "custo_unitario_coleta": 15.20,
+        "efetivo_t1": 8,
+        "efetivo_t2": 7,
+        "efetivo_t3": 3,
+    },
+    {
+        "site_id": "HUB-SERRA",
+        "nome": "Hub Regional Serra",
+        "cidade": "Serra Alta",
+        "uf": "SC",
+        "custo_unitario_coleta": 16.85,
+        "efetivo_t1": 6,
+        "efetivo_t2": 5,
+        "efetivo_t3": 2,
+    },
+    {
+        "site_id": "PONTO-BAIXADA",
+        "nome": "Ponto de Coleta Baixada",
+        "cidade": "Campo Bello",
+        "uf": "RS",
+        "custo_unitario_coleta": 20.30,
+        "efetivo_t1": 3,
+        "efetivo_t2": 2,
+        "efetivo_t3": 1,
+    },
+]

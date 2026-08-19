@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titulo %}Visão Geral - Torre de Controle de Operações{% endblock %}
+{% block conteudo %}
+<div class="barra-filtro">
+    <form method="get">
+        <label for="data">Data de referência</label>
+        <select name="data" id="data" onchange="this.form.submit()">
+            {% for data_opcao in datas_disponiveis %}
+            <option value="{{ data_opcao }}" {% if data_opcao == data_referencia %}selected{% endif %}>{{ data_opcao }}</option>
+            {% endfor %}
+        </select>
+    </form>
+</div>
+
+<h1>Visão Geral</h1>
+
+<section class="grade-kpis">
+    <div class="cartao-kpi">
+        <span class="rotulo-kpi">Volume total coletado</span>
+        <span class="valor-kpi">{{ cards.volume_total }}</span>
+    </div>
+    <div class="cartao-kpi {% if cards.percentual_falta_bipagem > 15 %}cartao-kpi-alerta{% endif %}">
+        <span class="rotulo-kpi">% Falta de bipagem</span>
+        <span class="valor-kpi">{{ cards.percentual_falta_bipagem }}%</span>
+    </div>
+    <div class="cartao-kpi">
+        <span class="rotulo-kpi">Custo estimado do dia</span>
+        <span class="valor-kpi">R$ {{ "%.2f"|format(cards.custo_do_dia) }}</span>
+    </div>
+    <div class="cartao-kpi">
+        <span class="rotulo-kpi">Efetivo total (todos os sites)</span>
+        <span class="valor-kpi">{{ cards.efetivo_total }}</span>
+    </div>
+</section>
+
+<section class="bloco-grafico">
+    <h2>Volume coletado por site</h2>
+    {{ grafico | safe }}
+</section>
+{% endblock %}
