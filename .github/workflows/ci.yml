@@ -1,0 +1,33 @@
+name: CI
+
+# Suíte de testes (tests/test_app.py + tests/test_etl.py) a cada push/PR --
+# cobre as rotas Flask e a carga idempotente (DELETE+INSERT) do ETL. Fica
+# separado do workflow de carga diária (pipeline_diario.yml), que só roda
+# agendado e tem outro objetivo (manter o banco de demonstração fresco).
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Rodar testes
+        run: pytest -v

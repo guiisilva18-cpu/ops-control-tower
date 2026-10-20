@@ -1,5 +1,7 @@
 # Torre de Controle de Operações
 
+[![CI](https://github.com/guiisilva18-cpu/ops-control-tower/actions/workflows/ci.yml/badge.svg)](https://github.com/guiisilva18-cpu/ops-control-tower/actions/workflows/ci.yml)
+
 Painel de indicadores logísticos com pipeline diário de dados: um script simula a raspagem de um portal interno fictício de transportadora (**ConectaCarga**), carrega os pedidos de coleta num banco de forma idempotente e um dashboard Flask exibe os KPIs operacionais do dia.
 
 > **Aviso importante:** este é um projeto de **portfólio**, com **dados 100% sintéticos e fictícios**. Nenhum nome de empresa, site, custo, usuário ou URL aqui corresponde a algo real. O projeto é inspirado na arquitetura de um sistema real que construí no trabalho (blueprints Flask por tela, `app_factory`, carga idempotente DELETE+INSERT por dia), mas todo o conteúdo - nomes, valores e credenciais - foi recriado do zero especificamente para esta demonstração pública.
@@ -45,6 +47,7 @@ ops-control-tower/
 ├── scripts/executar_pipeline.py   # orquestra gerar + carregar (usado pelo cron)
 ├── tests/                     # pytest (ETL + rotas Flask)
 ├── .github/workflows/pipeline_diario.yml  # cron diário (GitHub Actions)
+├── .github/workflows/ci.yml       # roda pytest a cada push/PR
 └── render.yaml                # blueprint de deploy no Render (documentado, não publicado)
 ```
 
